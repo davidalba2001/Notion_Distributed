@@ -13,6 +13,8 @@ NOTIFY = 'notf'
 UPDATE_PREDECESSOR = 'upt_pred'
 UPDATE_FINGER = 'upd_fin'
 UPDATE_JOIN = 'upt_join'
+FALL_SUCC = 'fl_suc'
+DATA_PRED = 'dat_prd'
 
 #dirección de broadcast
 BROADCAST_IP = '255.255.255.255' 

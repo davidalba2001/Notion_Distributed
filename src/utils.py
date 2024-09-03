@@ -5,7 +5,7 @@ import shutil
 import socket
 
 #hashear la data
-def set_id(data: str):
+def set_id(data: str) -> int:
   return int(hashlib.sha1(data.encode()).hexdigest(), 16)
 
 #optener mi ip
@@ -32,3 +32,4 @@ def create_folder(path: str):
 def rem_dir(dir: str):
   if os.path.exists(dir):
     shutil.rmtree(dir)
+    
