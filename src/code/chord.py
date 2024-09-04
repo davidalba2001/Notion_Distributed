@@ -146,6 +146,7 @@ class Server:
         except:
           print(f'Socket ({self._pred.ip}, {self._pred.port}) disconnected')
           self._handler.create(self._pred_info)
+          self._broadcast.notify(set_id(self._pred.ip))
             
           if ip_pred_pred != self._ip:
             try:  
