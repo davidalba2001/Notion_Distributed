@@ -142,7 +142,7 @@ class BroadcastRef():
     self._send_data(NOTIFY, id)
     
   #decirle a los nodos que actualicen su finger table debido a la caida de un nodo
-  def update_finger(self, id: str):
+  def update_finger(self, id: int):
     self._send_data(UPDATE_FINGER, id)
     
 #enviar data a los servidores udp

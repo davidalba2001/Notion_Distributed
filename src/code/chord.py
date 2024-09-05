@@ -146,7 +146,7 @@ class Server:
         except:
           print(f'Socket ({self._pred.ip}, {self._pred.port}) disconnected')
           self._handler.create(self._pred_info)
-          self._broadcast.notify(set_id(self._pred.ip))
+          self._broadcast.update_finger(self._pred.id)
             
           if ip_pred_pred != self._ip:
             try:  
@@ -159,6 +159,7 @@ class Server:
             except:
               print(f'Socket {ip_pred_pred} disconnected too')
               self._handler.create(self._pred_pred)
+              self._broadcast.update_finger(set_id(ip_pred_pred))
 
               if ip_pred_pred != self._succ.ip:
                 self._broadcast.notify(set_id(ip_pred_pred))
@@ -167,9 +168,6 @@ class Server:
             self._pred = None
             self._succ = self._ref
             self._finger = [self._ref] * 160
-      
-
-          self._broadcast.notify(self._pred.id)
       
         time.sleep(5)
   ############################################################################################ 
@@ -451,7 +449,7 @@ class Server:
               self._finger = [self._ref] * 160
         
         elif option == UPDATE_FINGER:
-          id = data[1]
+          id = int(data[1])
           sust = NodeReference(addr[0], TCP_PORT)
           
           for i in range(160):
@@ -486,7 +484,6 @@ class Server:
         elif option == UPDATE_PREDECESSOR:
           ip = data[1]
           port = int(data[2])
-          self._broadcast.update_finger(self._pred.id)
           self._pred = NodeReference(ip, port)
                   
         elif option == UPDATE_JOIN:

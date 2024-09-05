@@ -118,7 +118,3 @@ class DataBase:
     with open(f'{user}/{endpoint}.txt', 'r') as f:
       return f.read().strip()
       
-      
-      
-    
-  
