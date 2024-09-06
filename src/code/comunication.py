@@ -12,9 +12,9 @@ CHECK_PREDECESOR = 'check_pred'
 NOTIFY = 'notf'
 UPDATE_PREDECESSOR = 'upt_pred'
 UPDATE_FINGER = 'upd_fin'
-UPDATE_JOIN = 'upt_join'
-FALL_SUCC = 'fl_suc'
+UPDATE_SUCC = 'upd_suc'
 DATA_PRED = 'dat_prd'
+FALL_SUCC = 'fal_suc'
 
 #dirección de broadcast
 BROADCAST_IP = '255.255.255.255' 
@@ -114,7 +114,7 @@ class NodeReference:
     return self._port
   
 #enviar mensajes por broadcast a la red
-class BroadcastRef(): 
+class BroadcastRef: 
   def __init__(self, port: int):
     self._port = port
      
@@ -142,8 +142,8 @@ class BroadcastRef():
     self._send_data(NOTIFY, id)
     
   #decirle a los nodos que actualicen su finger table debido a la caida de un nodo
-  def update_finger(self, id: int):
-    self._send_data(UPDATE_FINGER, id)
+  def update_finger(self, id: int, ip: str, port: int):
+    self._send_data(UPDATE_FINGER, f'{id}|{ip}|{port}')
     
 #enviar data a los servidores udp
 def send_data(op: str, ip: str, port: int, data=None):

@@ -107,7 +107,8 @@ class DataBase:
     with open(f'{user}/{note}.txt', 'a') as f:
       f.write(f'[{name}]: {msg}\n')   
       
-    return f'{name} sent a sms to note ({note}): {msg}'
+    with open(f'{user}/{note}.txt', 'r') as f:
+      return f.read()
   
   #get 
   @classmethod
