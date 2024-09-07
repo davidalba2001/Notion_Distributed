@@ -318,8 +318,8 @@ class Server:
   
   #una nota recibe un sms
   def recv_msg(self, id: int, note: str, username: str, msg: str) -> str:
-    #si el dato tiene menor id que nosotros o tiene mayor id pero somos el "lider", nos encargamos de el
-    if (id < self._id) or (id > self._id and self._leader):
+    #si el dato tiene menor id que nosotros, le pedimos al "first" que haga la operacion
+    if id < self._id and not self._first:
       data_first = self._find_first().decode().split('|')
       ip = data_first[0]
       port = int(data_first[1])
