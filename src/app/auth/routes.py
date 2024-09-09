@@ -155,7 +155,7 @@ def share():
   admin = request.args.get('admin')
   form = Share()
   
-  if form.validate_on_submit:
+  if form.validate_on_submit():
     username = form.username.data.strip()
     contacts = server.get(id, 'contacts')
     names = [contact.split('-')[0].strip() for contact in contacts.split('\n') if contact != '']
