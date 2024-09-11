@@ -30,7 +30,7 @@ class HandleData():
   #crear data en la db
   @classmethod
   def create(cls, data: str):
-    users = data.split('|')
+    users = data.split('|')[:-1]
     
     for user in users:
       if user != '':
