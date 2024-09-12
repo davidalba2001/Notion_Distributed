@@ -4,7 +4,7 @@ import socket
 
 #operaciones chord
 JOIN = 'join'
-CONFIRM_FIRST = 'conf_first'
+CONFIRM_JOIN = 'conf_join'
 FIX_FINGER = 'fix_fing'
 FIND_FIRST = 'fnd_first'
 REQUEST_DATA = 'req_data'
@@ -84,12 +84,7 @@ class NodeReference:
     return response
   ############################################################################################
   
-  ############################### OPERACIONES CHORD ##########################################
-  #unir un nodo a la red
-  def join(self, ip, port):
-    response = self._send_data(JOIN, f'{ip}|{port}')
-    return response
-  
+  ############################### OPERACIONES CHORD ########################################## 
   #buscar el nodo 'first'
   def find_first(self):
     response = self._send_data(FIND_FIRST)
