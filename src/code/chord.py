@@ -2,7 +2,7 @@
 from src.code.db import DataBase, DB
 from src.code.comunication import NodeReference, BroadcastRef, send_data
 from src.code.comunication import REGISTER, LOGIN, ADD_CONTACT, RECV_MSG, GET, ADD_NOTE, RECV_NOTE
-from src.code.comunication import JOIN, CONFIRM_FIRST, FIX_FINGER, FIND_FIRST, REQUEST_DATA, CHECK_PREDECESOR, NOTIFY, UPDATE_PREDECESSOR, UPDATE_FINGER, UPDATE_SUCC, DATA_PRED, FALL_SUCC
+from src.code.comunication import JOIN, CONFIRM_JOIN, FIX_FINGER, FIND_FIRST, REQUEST_DATA, CHECK_PREDECESOR, NOTIFY, UPDATE_PREDECESSOR, UPDATE_FINGER, UPDATE_SUCC, DATA_PRED, FALL_SUCC
 from src.code.handle_data import HandleData
 from src.utils import set_id, get_ip, create_folder
 import queue
@@ -32,8 +32,8 @@ class Server:
     self._first: bool #saber si soy el primer nodo
     self._fix_finger_queue = queue.Queue() #cola de mensajes para arreglar la "finger table"
     self._update_finger_queue = queue.Queue() #cola de mensajes para actualizar la "finger table"
-    self._joined = False
-    self._confirm_join = False
+    self._joined = False #saber si ya me uni
+    self._confirm_join = False #saber si ya recibi confirmacion de union
     
     #hilos
     threading.Thread(target=self._start_broadcast_server).start()
@@ -67,36 +67,7 @@ class Server:
     #el server ya esta configurado 
     print('Ready for use')
   
-  ############################### OPERACIONES CHORD ##########################################
-  #unir un nodo a la red
-  def _join(self, ip: str, port: str) -> bytes:
-    id = set_id(ip)
-    
-    #si estoy solo en la red soy tu sucesor y tu predecesor
-    if self._pred == None:
-      response = f'{self._ip}|{self._tcp_port}|{self._ip}|{self._tcp_port}'
-      self._pred = NodeReference(ip, port)
-      self._succ = NodeReference(ip, port)
-      return response.encode()
-      
-    #si tu id es menor, entonces estas entre tu mi predecesor y yo
-    elif id < self._id:
-      response = f'{self._pred.ip}|{self._pred.port}|{self._ip}|{self._tcp_port}'
-      send_data(UPDATE_SUCC, self._pred.ip, self._udp_port, f'{ip}|{port}')
-      self._pred = NodeReference(ip, port)
-      return response.encode()
-    
-    #si eres mayor que yo pero yo soy el "lider", entonces estas entre el "first" y yo
-    elif self._leader:
-      response = f'{self._ip}|{self._tcp_port}|{self._succ.ip}|{self._succ.port}'
-      send_data(UPDATE_PREDECESSOR, self._succ.ip, self._udp_port, f'{ip}|{port}')
-      self._succ = NodeReference(ip, port)
-      return response.encode()
-
-    #le dejamos la tarea a nuestro sucesor
-    response = self._succ.join(ip, port)
-    return response 
-  
+  ############################### OPERACIONES CHORD ########################################## 
   #saber si soy el nodo de menor id
   def _set_first(self) -> bytes:
     while(True):
@@ -242,7 +213,7 @@ class Server:
         self._update_finger_queue.task_done()
   ############################################################################################ 
   
-  ############################## INTERACCIONES CON LA DataBase #####################################
+  ############################## INTERACCIONES CON LA DATABASE ###############################
   #registrar un usuario
   def register(self, id: int, name: str, number: int) -> str:
     #si el dato tiene menor id que nosotros, le pedimos al "first" que haga la operacion
@@ -468,11 +439,6 @@ class Server:
       title = data[3]
       data_resp = self._recv_note(id, name, title)
       
-    elif option == JOIN:
-      ip = data[1]
-      port = int(data[2])
-      data_resp = self._join(ip, port)
-
     elif option == REQUEST_DATA:
       id = int(data[1])
       data_resp = self._handler.data(True, id).encode()
@@ -503,10 +469,31 @@ class Server:
     print(f'Recived data by broadcast: {data} from {addr[0] if self._ip != addr[0] else "myself"}')
 
     if option == JOIN:
-      #si alguien se unio, le digo que somos el "first", para unirlo posteriormente
-      if addr[0] != self._ip and self._first:
-        send_data(CONFIRM_FIRST, addr[0], self._udp_port, f'{self._ip}|{self._tcp_port}')
+      #si alguien solicito unirse, le envio su ubicacion si soy su responsable
+      if addr[0] != self._ip:
+        id = set_id(addr[0])
+        #si estoy solo en la red soy tu sucesor y tu predecesor
+        if self._pred == None:
+          response = f'{self._ip}|{self._tcp_port}|{self._ip}|{self._tcp_port}'
+          self._pred = NodeReference(addr[0], self._tcp_port)
+          self._succ = NodeReference(addr[0], self._tcp_port)
       
+        #si tu id es menor que el mio pero mayor que el de mi predecesor, entonces estas entre mi predecesor y yo
+        #si eres menor que yo pero soy el "first", estas entre el "lider" y yo
+        elif id < self._id and (id > self._pred.id or self._first):
+          response = f'{self._pred.ip}|{self._pred.port}|{self._ip}|{self._tcp_port}'
+          send_data(UPDATE_SUCC, self._pred.ip, self._udp_port, f'{ip}|{port}')
+          self._pred = NodeReference(addr[0], self._tcp_port)
+          
+        #si eres mayor que yo pero yo soy el "lider", entonces estas entre el "first" y yo
+        elif self._leader:
+          response = f'{self._ip}|{self._tcp_port}|{self._succ.ip}|{self._succ.port}'
+          send_data(UPDATE_PREDECESSOR, self._succ.ip, self._udp_port, f'{ip}|{port}')
+          self._succ = NodeReference(addr[0], self._tcp_port)
+        
+        #enviar la ubicacion
+        send_data(CONFIRM_JOIN, addr[0], self._udp_port, response)
+  
       #si nadie me responde en 3 segundos, significa que estoy solo y termino el proceso de join
       else:
         time.sleep(2)
@@ -554,17 +541,13 @@ class Server:
     option = data[0]
     
     #al recibir la confirmacion del nodo "first", le solicito la union al anillo
-    if option == CONFIRM_FIRST:
+    if option == CONFIRM_JOIN:
       self._confirm_join = True
-      ip = data[1]
-      port = int(data[2])
-      first = NodeReference(ip, port) 
-      data_resp = first.join(self._ip, self._tcp_port).decode().split('|')
       
       #se la data no esta vacia me ubico 
-      if len(data_resp) != ['']:
-        self._pred = NodeReference(data_resp[0], int(data_resp[1]))
-        self._succ = NodeReference(data_resp[2], int(data_resp[3]))
+      if len(data) != ['']:
+        self._pred = NodeReference(data[1], int(data[2]))
+        self._succ = NodeReference(data[3], int(data[4]))
         self._joined = True
       
       #si la data esta vacia, hubo un error
