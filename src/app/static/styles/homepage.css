@@ -1,93 +1,128 @@
-body{
-  background-color: blueviolet;
+/* Reset general para márgenes y paddings */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.container_principal{
+body {
+  background-color: #e4f2fa; /* Color de fondo suave (light blue) */
+  font-family: 'Arial', sans-serif;
+  color: #333;
+}
+
+/* Estilo principal para centrar todo */
+.container_principal {
   height: 100vh;
+  display: flex;
+  flex-direction: column; /* Cambiar a column para tener la cabeza en la parte superior */
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
 }
 
-.container_head{
+.container_head {
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  padding: 10px;
-  font-size: 23px;
-  text-shadow: 1px 1px 2px white;
+  padding: 12px 300px; /* Aumentar el padding horizontal */
+  font-size: 30px; /* Tamaño de la fuente */
+  font-weight: bold;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
   user-select: none;
+  margin-bottom: 20px;
+  background-color: #2c8ed3; /* Color de fondo del encabezado */
+  border-radius: 25px; /* Bordes redondeados */
 }
 
-.principal_content_notes{
+
+
+/* Contenedor de notas principal */
+.principal_content_notes {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-  height: 75%;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+  height: 70%;
 }
 
-.container_notes{
+.container_notes {
   height: 100%;
   background-color: white;
-  width: 70%;
+  width: 73%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  border: 1px solid black;
+  border: 1px solid #cfd8dc; /* Borde gris claro */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
   border-radius: 25px;
 }
 
-.notes_head{
+/* Encabezado de la sección de notas */
+.notes_head {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: blueviolet;
+  background-color: #2c8ed3; /* Color de encabezado */
   color: white;
   width: 80%;
   height: 10%;
   margin: 15px;
-  border: 1px solid black;
+  border: 1px solid #cfd8dc; /* Borde gris claro */
   border-radius: 25px;
   user-select: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
-.container_list{
-  background-color: blueviolet;
+/* Lista de notas */
+.container_list {
+  background-color: #f9f9f9; /* Color de fondo para la lista de notas */
   width: 85%;
   height: 100%;
-  border: 1px solid black;
+  border: 1px solid #cfd8dc; /* Borde gris claro */
   border-radius: 25px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  overflow-y: auto; /* Agregar desplazamiento */
+  padding: 10px;
 }
 
-.container_link{
+.container_link {
   user-select: none;
   text-decoration: none;
   color: white;
   font-weight: bold;
   cursor: pointer;
-  padding: 5px;
-  margin: 1px 0;
+  padding: 12px; /* Aumentar el padding para mayor clicabilidad */
+  margin: 5px 0; /* Espaciado vertical entre enlaces */
   width: 95%;
+  background-color: #2c8ed3; /* Color de fondo de los enlaces */
+  border-radius: 10px;
+  text-align: center;
+  transition: background-color 0.3s, transform 0.2s; /* Transición suave al hacer hover */
 }
 
-.container_link:hover{
-  border-radius: 25px;
-  background-color: black;
-  color: peru;
+.container_link:hover {
+  background-color: #1f5f8a; /* Color de fondo más oscuro al hacer hover */
+  color: white; /* Color del texto al hacer hover */
+  transform: scale(1.05); /* Efecto de aumento al hacer hover */
 }
 
-.buttons_homepage{
+/* Botones al final de la lista */
+.buttons_homepage {
   width: 85%;
   display: flex;
   align-items: center;
   justify-content: space-around;
 }
 
-.button_foot{
-  background-color: blueviolet;
+.button_foot {
+  background-color: #2c8ed3; /* Color de fondo para los botones */
   color: white;
   text-decoration: none;
   font-weight: bold;
@@ -96,32 +131,35 @@ body{
   justify-content: center;
   margin: 10px;
   width: 20%;
-  height: 63%;
+  height: 50px; /* Altura fija para un aspecto consistente */
   border-radius: 25px;
-  border: 1px solid black;
+  border: 1px solid #cfd8dc; /* Borde gris claro */
   cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s; /* Transición suave al hacer hover */
 }
 
-.button_foot:hover{
-  background-color: black;
-  color: peru;
+.button_foot:hover {
+  background-color: #1f5f8a; /* Color de fondo al hacer hover */
+  color: white; /* Color del texto al hacer hover */
+  transform: scale(1.05); /* Efecto de aumento al hacer hover */
 }
 
-.back_button{
+/* Botón de regreso */
+.back_button {
   position: absolute;
-  color: blueviolet;
-  margin: 5px 10px;
-  padding: 5px;
-  font-weight: bold;
-  font-size: 20px;
-  border: 1px solid black;
-  border-radius: 15px;
-  cursor: pointer;
-  user-select: none;
+  top: 10px;
+  left: 10px;
   background-color: white;
+  color: #2c8ed3; /* Color de texto azul */
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 2px solid #2c8ed3; /* Borde azul */
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s; /* Transición suave */
 }
 
-.back_button:hover{
-  background-color: black;
-  color: peru;
+.back_button:hover {
+  background-color: #2c8ed3; /* Color de fondo al hacer hover */
+  color: white; /* Color de texto al hacer hover */
 }

@@ -1,111 +1,99 @@
-*{
+/* Establecer un reset más limpio y legible */
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-body{
-  background-color: blueviolet;
+body {
+  background-color: #f0f2f5; /* Un color más suave y amigable para los ojos */
+  font-family: 'Arial', sans-serif;
+  color: #333;
 }
 
-.container_principal{
+/* Centrado del contenedor principal */
+.container_principal {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  width: 100vw;
+  padding: 0 20px;
+  background-color: #f0f2f5;
 }
 
-.form_note{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  height: 25%;
-  width: 40%;
-  background-color: white;
-  border-radius: 25px;
-  border: 1px black solid;
-}
-
-.container_fields{
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-direction: column;
+.form_note {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para un efecto más moderno */
+  padding: 20px;
   width: 100%;
-  height: 60%;
+  max-width: 400px; /* Limitar el ancho para que sea más compacto */
+  text-align: center;
 }
 
-.element_form{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  margin: 5px;
-  width: 90%;
+.container_fields {
+  margin-bottom: 20px;
 }
 
-.element_form label{
-  color: blueviolet;
+.element_form {
+  margin-bottom: 15px; /* Mayor separación entre elementos */
+}
+
+.element_form label {
+  color: #4a90e2; /* Un azul más claro */
   font-weight: bold;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 3px;
-  user-select: none;
+  margin-bottom: 8px;
+  display: block;
+  font-size: 16px;
 }
 
-.element_form input{
-  width: 80%;
-  background-color: blueviolet;
-  padding: 3px 5px;
-  border-radius: 25px;
+.element_form input {
+  width: 100%; /* Ajusta el input al 100% del contenedor */
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  color: #333;
+  font-size: 14px;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.element_form input:focus {
+  border-color: #4a90e2; /* Cambia el color del borde al enfocar */
+  outline: none;
+}
+
+.container_button input {
+  background-color: #4a90e2;
   color: white;
   font-weight: bold;
-  border: 1px solid black;
-}
-
-.container_button{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 15px;
-  width: 50%;
-}
-
-.container_button input{
-  background-color: blueviolet;
-  color: white;
-  font-weight: bold;
-  width: 50%;
-  padding: 3px 0;
-  border-radius: 15px;
-  border: 1px solid black;
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.container_button input:hover{
-  background-color: peru;
+.container_button input:hover {
+  background-color: #357ABD; /* Un color más oscuro al hacer hover */
 }
 
-.back_button
-{
+.back_button {
   position: absolute;
-  color: blueviolet;
-  margin: 5px 10px;
-  padding: 5px;
+  top: 10px;
+  left: 10px;
+  background-color: #ffffff;
+  color: #4a90e2;
   font-weight: bold;
-  font-size: 20px;
-  border: 1px solid black;
-  border-radius: 15px;
-  cursor: pointer;
-  user-select: none;
-  background-color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 2px solid #4a90e2;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.back_button:hover{
-  background-color: black;
-  color: peru;
+.back_button:hover {
+  background-color: #4a90e2;
+  color: white;
 }
 

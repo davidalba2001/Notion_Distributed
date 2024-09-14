@@ -1,123 +1,100 @@
-body{
-  background-color: blueviolet;
+/* Estilos generales */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif; /* Fuente general */
+  background-color: #f0f8ff; /* Color de fondo claro */
+  color: #333; /* Color del texto */
 }
 
-.container_principal{
-  height: 100vh;
+.container_principal {
+  max-width: 800px; /* Ancho máximo del contenedor */
+  max-height: 800px; /* Altura máxima del contenedor */
+  margin: auto auto; /* Centrar el contenedor */
+  padding: 20px; /* Espaciado interno */
+  background-color: white; /* Fondo blanco */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+  display: flex; /* Habilitar Flexbox */
+  flex-direction: column; /* Colocar elementos en columna */
 }
 
-.container_head{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  padding: 10px;
-  font-size: 23px;
-  text-shadow: 1px 1px 2px white;
-  user-select: none;
+/* Estilo del encabezado */
+.container_head {
+  text-align: center; /* Centra el texto */
+  margin-bottom: 20px; /* Espaciado inferior */
 }
 
-.principal_content_chats{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  height: 75%;
+.container_head h2 {
+  color: #007bff; /* Color azul */
 }
 
-.container_chats{
-  height: 100%;
-  background-color: white;
-  width: 70%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  border: 1px solid black;
-  border-radius: 25px;
+/* Estilos para los botones */
+.button, .share_button {
+  display: inline-block; /* Para poder darles padding y margen */
+  padding: 10px 20px; /* Espaciado interno */
+  margin: 10px; /* Espaciado externo */
+  color: white; /* Color del texto en el botón */
+  background-color: #007bff; /* Fondo azul */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  text-decoration: none; /* Sin subrayado */
+  font-size: 16px; /* Tamaño de fuente */
+  transition: background-color 0.3s; /* Efecto de transición */
 }
 
-.chats_head{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: blueviolet;
-  color: white;
-  width: 80%;
-  height: 10%;
-  margin: 15px;
-  border: 1px solid black;
-  border-radius: 25px;
-  user-select: none;
+.button:hover, .share_button:hover {
+  background-color: #0056b3; /* Azul más oscuro al pasar el ratón */
 }
 
-.chats{
-  background-color: blueviolet;
-  width: 85%;
-  height: 100%;
-  border: 1px solid black;
-  border-radius: 25px;
+/* Estilo del contenido de los chats */
+.principal_content_chats {
+  margin-top: 20px; /* Espaciado superior */
 }
 
-.msg{
-  color: white;
-  font-weight: bold;
+.chats_head h3 {
+  color: #007bff; /* Color azul para el encabezado de chats */
+  margin-bottom: 10px; /* Espaciado inferior */
 }
 
-.send_msg{
-  display: flex;
-  margin: 15px 0;
-  width: 85%;
-  justify-content: space-between;
-  align-items: center;
+/* Estilos para los mensajes */
+.chats {
+  max-height: 500px; /* Altura máxima del área de chats */
+  overflow-y: auto; /* Habilita el desplazamiento vertical */
+  margin-bottom: 20px; /* Espaciado inferior */
 }
 
-#text{
-  width: 90%;
-  padding: 5px;
-  background-color: blueviolet;
-  color: white;
-  font-weight: bold;
-  border: 1px solid black;
-  border-radius: 25px;
-  user-select: none;
+.msg {
+  background-color: #e9ecef; /* Fondo gris claro para los mensajes */
+  padding: 10px; /* Espaciado interno del mensaje */
+  border-radius: 5px; /* Bordes redondeados */
+  margin: 5px 0; /* Espaciado entre mensajes */
 }
 
-#submit{
-  background-color: blueviolet;
-  color: white;
-  font-weight: bold;
-  border: 1px solid black;
-  border-radius: 10px;
-  padding: 5px 8px;
-  margin: 0 3px;
-  cursor: pointer;
+/* Estilos para el formulario de mensajes */
+.send_msg {
+  display: flex; /* Flex para alinear los elementos */
+  justify-content: space-between; /* Espaciado entre elementos */
+  margin-top: auto; /* Empuja el formulario hacia abajo */
 }
 
-#submit:hover{
-  color: peru;
-  background-color: black;
+.send_msg input[type="text"] {
+  flex: 1; /* Ocupa el espacio disponible */
+  padding: 10px; /* Espaciado interno */
+  border: 1px solid #ccc; /* Borde gris */
+  border-radius: 5px; /* Bordes redondeados */
+  margin-right: 10px; /* Espaciado derecho */
 }
 
-.button{
-  position: absolute;
-  color: blueviolet;
-  font-weight: bold;
-  font-size: 20px;
-  border: 1px solid black;
-  border-radius: 15px;
-  cursor: pointer;
-  user-select: none;
-  background-color: white;
-  padding: 5px;
-  margin: 5px 10px;
+.send_msg input[type="submit"] {
+  background-color: #007bff; /* Fondo azul */
+  color: white; /* Color del texto */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 10px 20px; /* Espaciado interno */
+  cursor: pointer; /* Cambia el cursor */
+  transition: background-color 0.3s; /* Efecto de transición */
 }
 
-.share_button{
-  left: 90%;
+.send_msg input[type="submit"]:hover {
+  background-color: #0056b3; /* Azul más oscuro al pasar el ratón */
 }
-
-.button:hover{
-  background-color: black;
-  color: peru;
-}
-

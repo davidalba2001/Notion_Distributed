@@ -1,13 +1,18 @@
-*{
+/* Reset general */
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-body{
-  background-color: blueviolet;
+body {
+  background-color:#003877; /* Un color de fondo más oscuro */
+  font-family: 'Arial', sans-serif;
+  color: #333;
 }
 
-.container_principal{
+/* Contenedor principal que centra todo el contenido */
+.container_principal {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,19 +20,22 @@ body{
   width: 100vw;
 }
 
-.form_register{
+/* Estilo del formulario de registro */
+.form_register {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 50%;
+  height: 60%;
   width: 40%;
   background-color: white;
-  border-radius: 25px;
-  border: 1px black solid;
+  border-radius: 15px;
+  border: 1px solid #ccc; /* Sombra más suave */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para efecto elevado */
 }
 
-.container_fields{
+/* Contenedor para los campos del formulario */
+.container_fields {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -36,76 +44,86 @@ body{
   height: 60%;
 }
 
-.element_form_register{
+/* Estilo para cada elemento del formulario */
+.element_form_register {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin: 5px;
+  margin: 10px 0; /* Espaciado vertical */
   width: 90%;
 }
 
-.element_form_register label{
-  color: blueviolet;
+/* Estilo de las etiquetas */
+.element_form_register label {
+  color: #4a90e2;; /* Un color de texto más suave */
   font-weight: bold;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 3px;
-  user-select: none;
+  margin-bottom: 5px;
 }
 
-.element_form_register input{
-  width: 80%;
-  background-color: blueviolet;
-  padding: 3px 5px;
-  border-radius: 25px;
-  color: white;
-  font-weight: bold;
-  border: 1px solid black;
+/* Estilo de los campos de entrada */
+.element_form_register input {
+  width: 100%; /* Ocupa el 100% del ancho */
+  padding: 10px; /* Espaciado interno más grande */
+  border-radius: 10px;
+  color: #333; /* Color de texto más oscuro para mejor legibilidad */
+  font-weight: normal;
+  border: 1px solid #ccc; /* Borde suave */
+  transition: border 0.3s; /* Transición suave al enfocar */
 }
 
-.container_button{
+.element_form_register input:focus {
+  border: 1px solid #4a90e2;; /* Color de borde al enfocar */
+}
+
+/* Contenedor del botón de envío */
+.container_button {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 15px;
-  width: 50%;
+  margin-top: 20px; /* Espaciado superior más grande */
+  width: 60%; /* Un poco más ancho */
 }
 
-.container_button input{
-  background-color: blueviolet;
+/* Estilo del botón de envío */
+.container_button input {
+  background-color: #4a90e2;; /* Color de fondo del botón */
   color: white;
   font-weight: bold;
-  width: 50%;
-  padding: 3px 0;
-  border-radius: 15px;
-  border: 1px solid black;
+  width: 100%; /* Ocupa el 100% del ancho */
+  padding: 10px;
+  border-radius: 10px;
+  border: none; /* Sin borde para un aspecto limpio */
   cursor: pointer;
+  transition: background-color 0.3s; /* Transición suave al pasar el ratón */
 }
 
-.container_button input:hover{
-  background-color: peru;
+.container_button input:hover {
+  background-color: #4a90e2;; /* Color de fondo más claro al pasar el ratón */
 }
 
-.back_button
-{
+/* Estilo del botón de retroceso */
+.back_button {
   position: absolute;
-  color: blueviolet;
-  margin: 5px 10px;
-  padding: 5px;
+  color: white;
+  margin: 15px; /* Espaciado */
+  padding: 10px;
   font-weight: bold;
-  font-size: 20px;
-  border: 1px solid black;
-  border-radius: 15px;
+  font-size: 18px;
+  border: 1px solid #ccc; /* Borde suave */
+  border-radius: 10px;
   cursor: pointer;
   user-select: none;
-  background-color: white;
+  background-color: #0071f3;; /* Color de fondo */
+  transition: background-color 0.3s; /* Transición suave */
 }
 
-.back_button:hover{
-  background-color: black;
-  color: peru;
+.back_button:hover {
+  background-color: #1c005e; /* Color de fondo más claro al pasar el ratón */
 }
+
 
